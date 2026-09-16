@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy and security — Faithful Markdown Export for Confluence</title>
+<meta name="description" content="Privacy policy and security statement for Faithful Markdown Export for Confluence.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap">
+    <strong><a href="index.html" style="color:inherit">Faithful Markdown Export</a></strong>
+    <nav>
+      <a href="docs.html">Docs</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="support.html">Support</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+<h1>Privacy and security</h1>
+<p class="updated">Last updated 16 September 2026.</p>
+
+<p>
+  This policy covers <strong>Faithful Markdown Export for Confluence</strong>, an app
+  published on the Atlassian Marketplace by <strong>Second Tiger</strong>
+  (두번째호랑이, business registration 670-56-01033, Republic of Korea).
+</p>
+
+<div class="callout">
+  <p>
+    <strong>The short version: the app stores nothing.</strong> It reads the pages you ask it
+    to export, converts them in your own browser, and hands you a zip file. Nothing is kept
+    afterwards, and nothing is sent anywhere outside Atlassian.
+  </p>
+</div>
+
+<h2>What the app processes</h2>
+
+<p>When you run an export, the app reads from the Confluence site it is installed on:</p>
+
+<ul>
+  <li>the titles and hierarchy of the pages in the selected scope</li>
+  <li>the body of each of those pages, in Atlassian Document Format</li>
+  <li>the attachments on those pages, if you leave "Include attachments" ticked</li>
+</ul>
+
+<p>
+  It reads this <strong>as you</strong>, using your own Confluence permissions. It cannot
+  see anything you cannot already see.
+</p>
+
+<h2>What the app stores</h2>
+
+<p><strong>Nothing.</strong></p>
+
+<ul>
+  <li>No Forge storage, no database, no cache.</li>
+  <li>No copies of your pages or attachments are retained after the export finishes.</li>
+  <li>No analytics, no telemetry, no usage tracking.</li>
+  <li>No personal data is collected, and none is shared with anyone.</li>
+</ul>
+
+<p>
+  The converted Markdown exists only in your browser tab's memory until you download it.
+  Closing the tab discards it.
+</p>
+
+<h2>Where the processing happens</h2>
+
+<p>
+  Conversion and packaging run in your browser. The one piece of server-side work — fetching
+  attachment bytes, which the browser frame cannot do for itself — runs inside the
+  Atlassian-hosted Forge runtime and returns the file straight to your browser without
+  storing it.
+</p>
+
+<p>
+  <strong>The app makes no requests to any host outside Atlassian.</strong> It declares no
+  external egress, which is what qualifies it for Atlassian's
+  <em>Runs on Atlassian</em> programme.
+</p>
+
+<h2>Data residency</h2>
+
+<p>
+  Not applicable. Because the app stores no data, there is no data to hold in any region.
+  Your content stays in the Atlassian region your site is already hosted in.
+</p>
+
+<h2>Permissions the app requests</h2>
+
+<table>
+  <tr><th>Scope</th><th>Why</th></tr>
+  <tr><td><code>read:page:confluence</code></td><td>Read the body and hierarchy of the pages being exported</td></tr>
+  <tr><td><code>read:space:confluence</code></td><td>Find the space and its home page for a space-wide export</td></tr>
+  <tr><td><code>read:attachment:confluence</code></td><td>List and download attachments so they can go into the zip</td></tr>
+  <tr><td><code>read:content-details:confluence</code></td><td>Read titles and parent relationships to rebuild the tree</td></tr>
+</table>
+
+<p>
+  <strong>The app requests no write access.</strong> It cannot create, change or delete
+  anything in your Confluence site.
+</p>
+
+<h2>Sub-processors</h2>
+
+<p>
+  None. Atlassian hosts the app as part of the Forge platform; there is no other party
+  involved, and no third-party service receives your content.
+</p>
+
+<h2>Your rights</h2>
+
+<p>
+  Because no personal data is collected or retained, there is nothing to access, correct,
+  export or erase. If you believe that is wrong in some case we have not thought of, write
+  to us and we will investigate and answer.
+</p>
+
+<h2>Security reporting</h2>
+
+<p>
+  If you find a security problem in this app, please report it privately to
+  <a href="mailto:yjkwon@winm2m.com">yjkwon@winm2m.com</a> rather than in a public issue. We
+  will acknowledge within three working days.
+</p>
+
+<h2>Changes</h2>
+
+<p>
+  If this policy changes in a way that affects what the app processes or stores, the change
+  will be published here with a new date, and described in the app's release notes.
+</p>
+
+<h2>Contact</h2>
+
+<p>
+  Second Tiger (두번째호랑이)<br>
+  183-32 Chungnyeong-ro, Sang-myeon, Gapyeong-gun, Gyeonggi-do 12448, Republic of Korea<br>
+  <a href="mailto:yjkwon@winm2m.com">yjkwon@winm2m.com</a>
+</p>
+
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    Built by Second Tiger ·
+    <a href="docs.html">Documentation</a> ·
+    <a href="privacy.html">Privacy and security</a> ·
+    <a href="support.html">Support</a>
+  </div>
+</footer>
+
+</body>
+</html>

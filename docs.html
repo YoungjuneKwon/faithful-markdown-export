@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Documentation — Faithful Markdown Export for Confluence</title>
+<meta name="description" content="How to export Confluence pages to Markdown: where to find the app, what the output looks like, and exactly what degrades and why.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap">
+    <strong><a href="index.html" style="color:inherit">Faithful Markdown Export</a></strong>
+    <nav>
+      <a href="docs.html">Docs</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="support.html">Support</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+<h1>Documentation</h1>
+<p class="lede">Everything the app does, and everything it cannot do.</p>
+
+<h2>Running an export</h2>
+
+<ol>
+  <li>Open any Confluence page.</li>
+  <li>Click <strong>⋯</strong> at the top right, then <strong>Apps</strong>.</li>
+  <li>Choose <strong>Export to Markdown</strong>.</li>
+  <li>Pick a scope — <em>this page and everything under it</em>, or <em>the whole space</em>.</li>
+  <li>Leave <strong>Include attachments</strong> ticked unless you only want the text.</li>
+  <li>Click <strong>Export</strong>. A zip downloads when it finishes.</li>
+</ol>
+
+<div class="callout">
+  <p>
+    <strong>Not finding it?</strong> The entry point is the page's <strong>⋯</strong> menu, not
+    the left sidebar. Confluence lists app actions there rather than in navigation.
+  </p>
+</div>
+
+<h2>What the zip contains</h2>
+
+<p>The folder structure mirrors the page tree. A page with children becomes a file
+<em>and</em> a directory of the same name:</p>
+
+<pre><code>engineering-handbook.md
+engineering-handbook/
+├── getting-started.md
+├── getting-started/
+│   ├── install.md
+│   └── advanced.md
+├── reference.md
+├── reference/
+│   └── api.md
+└── attachments/
+    ├── diagram.png
+    └── 설계도.png
+</code></pre>
+
+<ul>
+  <li><strong>Filenames keep their characters.</strong> A Korean, Japanese or Chinese title
+      stays readable. Only characters a filesystem refuses — <code>/ \ : * ? " &lt; &gt; |</code> —
+      are replaced, and two different titles never collapse onto the same file.</li>
+  <li><strong>Attachments</strong> go into an <code>attachments/</code> folder beside the page
+      that owns them, and the body is rewritten to point at them relatively.</li>
+  <li><strong>Links between exported pages</strong> become relative paths, so the export works
+      on its own. Links to pages <em>outside</em> the selected scope stay as Confluence URLs —
+      there is no file to point at.</li>
+</ul>
+
+<h2>How each piece of Confluence is converted</h2>
+
+<h3>Kept exactly</h3>
+
+<table>
+  <tr><th>Confluence</th><th>Markdown</th></tr>
+  <tr><td>Task list, complete / incomplete</td><td><code>- [x]</code> / <code>- [ ]</code></td></tr>
+  <tr><td>Code block with a language</td><td>Fence carrying that language</td></tr>
+  <tr><td>Nested lists, to any depth</td><td>Nested lists, correctly indented</td></tr>
+  <tr><td>Code block or table inside a list item</td><td>Same, indented to stay inside the item</td></tr>
+  <tr><td>Bold, italic, strikethrough, inline code</td><td>The equivalent Markdown</td></tr>
+  <tr><td>Tables, including block content in cells</td><td>GitHub tables</td></tr>
+  <tr><td>Images, including external ones</td><td><code>![alt](path)</code>, attachments exported</td></tr>
+  <tr><td>Page links, anchors, external links</td><td>Relative or absolute links</td></tr>
+  <tr><td>Emoji, CJK text, dates</td><td>Unchanged; dates as <code>YYYY-MM-DD</code></td></tr>
+</table>
+
+<h3>Degraded, with nothing lost</h3>
+
+<p>These have no Markdown equivalent. They are converted to the closest thing that keeps
+every word.</p>
+
+<table>
+  <tr><th>Confluence</th><th>Becomes</th></tr>
+  <tr><td>Info / note / warning / tip panel</td><td><code>&gt; [!NOTE]</code>, <code>[!WARNING]</code>… — an alert on GitHub, a quote elsewhere</td></tr>
+  <tr><td>Expand (collapsed content)</td><td><code>&lt;details&gt;&lt;summary&gt;</code>, body included</td></tr>
+  <tr><td>Column layout</td><td>The columns' blocks, in reading order</td></tr>
+  <tr><td>Merged table cells</td><td>A flat grid; the text lands once, the covered cells are blank</td></tr>
+  <tr><td>Status lozenge</td><td>Bold text</td></tr>
+  <tr><td>Underline, subscript, superscript</td><td><code>&lt;u&gt;</code>, <code>&lt;sub&gt;</code>, <code>&lt;sup&gt;</code></td></tr>
+  <tr><td>A macro with a body (including unknown ones)</td><td>Its body, under a comment naming the macro</td></tr>
+  <tr><td>A macro with no body (table of contents, children)</td><td>A comment naming the macro and its parameters</td></tr>
+  <tr><td>A draw.io or Gliffy diagram</td><td>An image pointing at the exported attachment</td></tr>
+</table>
+
+<h3>What the app cannot do</h3>
+
+<ul>
+  <li><strong>It does not import.</strong> This is a one-way export, Confluence to Markdown.</li>
+  <li><strong>It does not render PlantUML.</strong> No common Markdown renderer does, so the
+      source is preserved as a code block rather than turned into a picture.</li>
+  <li><strong>It cannot export what Confluence did not store.</strong> A raw
+      <code>&lt;iframe&gt;</code>, for example, is discarded by Confluence Cloud when the page is
+      saved — it is not on the page by the time any exporter sees it.</li>
+  <li><strong>It cannot recover a macro's rendered output</strong> when that output lives
+      outside the page. The macro's own content comes out; a picture generated on some
+      vendor's server does not.</li>
+</ul>
+
+<h2>The degradation report</h2>
+
+<p>
+  Every export ends with a summary of what had to be degraded and which page it came from.
+  Expand it to see each item individually. If nothing had to be degraded, it says so.
+</p>
+<p>
+  This exists because the failures that matter in an export are the silent ones. A report you
+  can read is the difference between a known trade-off and a surprise six months later.
+</p>
+
+<h2>Checking the output yourself</h2>
+
+<p>
+  The conformance suite this app is built against is public, and it works on any exporter,
+  not just this one.
+</p>
+
+<pre><code>git clone https://github.com/YoungjuneKwon/confluence-markdown-conformance
+cd confluence-markdown-conformance
+npm install
+
+export CONFLUENCE_BASE_URL=https://your-site.atlassian.net
+export CONFLUENCE_EMAIL=you@example.com
+export CONFLUENCE_API_TOKEN=...
+
+node scripts/seed.mjs         # creates a space full of hard cases
+node scripts/verify-seed.mjs  # confirms Confluence stored all of it
+
+# export that space with any app, unzip it, then:
+node scripts/score.mjs out/your-export
+</code></pre>
+
+<p>
+  The rules and the reasoning behind each one are in
+  <a href="https://github.com/YoungjuneKwon/confluence-markdown-conformance/blob/main/SPEC.md">SPEC.md</a>.
+  If you think a rule is wrong, it is a file you can argue with.
+</p>
+
+<h2>Frequently asked</h2>
+
+<h3>How large a space can it handle?</h3>
+<p>
+  The work happens in your browser, so the practical limit is memory rather than a server
+  timeout. Very large spaces with many attachments are best exported a subtree at a time; if
+  you hit a limit, untick <em>Include attachments</em> and export those separately.
+</p>
+
+<h3>Does it need admin permissions?</h3>
+<p>
+  No. It reads as you, with your own permissions, and asks only for read access. You cannot
+  export a page you could not already open.
+</p>
+
+<h3>Why is a page link to another space still a URL?</h3>
+<p>
+  Because there is no file in the export to point at. Rewriting it to a relative path would
+  produce a link that leads nowhere, which is worse than a link that works in the browser.
+</p>
+
+<h3>Can I re-import the Markdown into Confluence?</h3>
+<p>
+  This app does not import, but the output is ordinary CommonMark plus GitHub extensions, so
+  any Markdown importer can read it. Task state and code block languages survive the round
+  trip, which is the part importers usually cannot reconstruct on their own.
+</p>
+
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    Built by Second Tiger ·
+    <a href="docs.html">Documentation</a> ·
+    <a href="privacy.html">Privacy and security</a> ·
+    <a href="support.html">Support</a>
+  </div>
+</footer>
+
+</body>
+</html>

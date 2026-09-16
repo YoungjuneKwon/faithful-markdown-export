@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Faithful Markdown Export for Confluence</title>
+<meta name="description" content="Export Confluence pages, trees or whole spaces to Markdown without losing task state, code block languages, nesting or non-English titles.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap">
+    <strong>Faithful Markdown Export</strong>
+    <nav>
+      <a href="docs.html">Docs</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="support.html">Support</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+<h1>Your Confluence export is probably losing more than you think</h1>
+<p class="lede">
+  A completed task that comes out unchecked. A Korean page title that becomes
+  <code>page-4a8efd2d-….md</code>. A code block that forgets it was Python. None of it
+  throws an error — you find out later, in the repository you migrated to.
+</p>
+
+<h2>One rule</h2>
+
+<blockquote>Degrade, never delete.</blockquote>
+
+<p>
+  Markdown genuinely cannot express everything Confluence can. A merged table cell, a
+  three-column layout, a status lozenge — there is no faithful Markdown for these, and
+  pretending otherwise produces worse output than admitting it.
+</p>
+<p>
+  So the bar is not perfection. The bar is this: <strong>after the export, is any
+  information gone that a reader would have had before it?</strong> A layout may flatten
+  into paragraphs. It may not lose the second column.
+</p>
+
+<h2>What it keeps</h2>
+
+<table>
+  <tr><th>In Confluence</th><th>In the export</th></tr>
+  <tr><td>A completed task</td><td><code>- [x]</code> — the state is a fact, not a format</td></tr>
+  <tr><td>A code block marked <code>python</code></td><td>A fence that still says <code>python</code></td></tr>
+  <tr><td>A code block inside a list item</td><td>Still inside it, with the indent CommonMark requires</td></tr>
+  <tr><td>A page titled <code>한글로만 이루어진 제목</code></td><td>A filename you can still read</td></tr>
+  <tr><td>A Mermaid diagram</td><td>A <code>mermaid</code> fence, so GitHub still draws it</td></tr>
+  <tr><td>A draw.io diagram</td><td>An image pointing at the exported attachment</td></tr>
+  <tr><td>An info panel</td><td><code>&gt; [!NOTE]</code> — an alert, degrading to a quote</td></tr>
+  <tr><td>A collapsed expand block</td><td><code>&lt;details&gt;</code>, body included</td></tr>
+  <tr><td>Merged table cells</td><td>A flat grid; the geometry goes, the words stay</td></tr>
+  <tr><td>A macro nobody taught it about</td><td>Its body text, and a comment naming the macro</td></tr>
+</table>
+
+<h2>Verified, not claimed</h2>
+
+<p>
+  Every release is scored against a public conformance suite — 63 rules, a seed corpus you
+  can install into your own site, and a scorer that reads the output rather than trusting it.
+  The rules, the corpus and the results are all open.
+</p>
+
+<div class="callout">
+  <p><strong>Current scores</strong>, measured 2026&#8209;09&#8209;16 on the same Confluence space:</p>
+  <table style="margin-bottom:0">
+    <tr><th>Export</th><th>Cases</th><th>Critical failures</th></tr>
+    <tr><td>Faithful Markdown Export 0.1.0</td><td class="yes">63 / 63</td><td class="yes">0</td></tr>
+    <tr><td>The leading shipping alternative</td><td class="no">46 / 63</td><td class="no">9</td></tr>
+  </table>
+</div>
+
+<p>
+  Run it yourself before you buy:
+  <a href="https://github.com/YoungjuneKwon/confluence-markdown-conformance">confluence-markdown-conformance</a>.
+  The repository also holds <a href="https://github.com/YoungjuneKwon/confluence-markdown-conformance/tree/main/samples">both exports of the same space</a>,
+  so you can read the difference instead of the scores — GitHub draws one export's Mermaid
+  diagram and prints the other's as text.
+</p>
+
+<h2>It tells you what it degraded</h2>
+
+<p>
+  Every run ends with a list of what could not be represented faithfully, and which page it
+  came from. Silence about what was lost is the habit that makes an exporter impossible to
+  trust.
+</p>
+
+<h2>What it exports</h2>
+
+<ul>
+  <li>A page, a page tree, or an entire space in one pass</li>
+  <li>Attachments into <code>attachments/</code>, with body references rewritten to point at them</li>
+  <li>A folder structure that mirrors the page tree</li>
+  <li>Relative links between exported pages; absolute links for anything outside the selection</li>
+</ul>
+
+<h2>Runs on Atlassian</h2>
+
+<p>
+  Your content never leaves Atlassian infrastructure. The app contacts no external service,
+  stores nothing, and asks only for read access.
+</p>
+
+<h2>Pricing</h2>
+
+<table>
+  <tr><th>Users</th><th>Price</th></tr>
+  <tr><td>Up to 10</td><td><strong>Free</strong></td></tr>
+  <tr><td>11 and above</td><td>Per-user, in line with comparable apps</td></tr>
+</table>
+<p class="updated">Exact tiers are shown on the Marketplace listing. A 30-day free trial applies to paid tiers.</p>
+
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    Built by Second Tiger ·
+    <a href="docs.html">Documentation</a> ·
+    <a href="privacy.html">Privacy and security</a> ·
+    <a href="support.html">Support</a>
+  </div>
+</footer>
+
+</body>
+</html>
