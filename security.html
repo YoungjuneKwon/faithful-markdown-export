@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Security policy — Faithful Markdown Export for Confluence</title>
+<meta name="description" content="How to report a vulnerability in Faithful Markdown Export for Confluence, what we commit to fixing and when, and how security incidents are handled.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap">
+    <strong><a href="index.html" style="color:inherit">Faithful Markdown Export</a></strong>
+    <nav>
+      <a href="docs.html">Docs</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="security.html">Security</a>
+      <a href="support.html">Support</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+<h1>Security policy</h1>
+<p class="updated">Last updated 30 September 2026.</p>
+
+<p>
+  This policy covers <strong>Faithful Markdown Export for Confluence</strong>, published on the
+  Atlassian Marketplace by <strong>Second Tiger</strong> (두번째호랑이, business registration
+  670-56-01033, Republic of Korea). It explains how to report a security problem, what we
+  commit to doing about it, and what happens if something goes wrong.
+</p>
+
+<div class="callout">
+  <p>
+    <strong>Report a vulnerability to <a href="mailto:yjkwon@winm2m.com">yjkwon@winm2m.com</a>.</strong>
+    Please do not open a public issue. We aim to acknowledge within one business day.
+  </p>
+</div>
+
+<h2>Reporting a vulnerability</h2>
+
+<p>Email <a href="mailto:yjkwon@winm2m.com">yjkwon@winm2m.com</a> with whatever you have. What
+helps most:</p>
+
+<ul>
+  <li>what you did, in enough detail that we can reproduce it</li>
+  <li>what happened that should not have</li>
+  <li>the app version, and the Confluence site type if it matters</li>
+  <li>how you would like to be credited, if you want to be</li>
+</ul>
+
+<p>
+  We will confirm receipt, tell you what we think the severity is and why, and keep you
+  posted until it is fixed. We ask that you give us a chance to ship a fix before describing
+  the issue publicly. We will not take legal action over good-faith research.
+</p>
+
+<p>
+  You can also report Marketplace app vulnerabilities to Atlassian directly, and Atlassian
+  will route them to us.
+</p>
+
+<h2>How fast we fix things</h2>
+
+<p>
+  Severity is assessed with CVSS. As an Atlassian Marketplace partner we are held to
+  Atlassian's published deadlines for cloud apps, measured from the point the issue is
+  reported to Atlassian:
+</p>
+
+<table>
+  <tr><th>Severity</th><th>CVSS</th><th>Fixed within</th></tr>
+  <tr><td>Critical</td><td>9.0 and above</td><td>10 days</td></tr>
+  <tr><td>High</td><td>7.0 and above</td><td>4 weeks</td></tr>
+  <tr><td>Medium</td><td>4.0 and above</td><td>12 weeks</td></tr>
+  <tr><td>Low</td><td>below 4.0</td><td>25 weeks</td></tr>
+</table>
+
+<p>
+  Fixes reach you without any action on your part: the app is a Forge app, so a deployed
+  version is picked up by every installed site.
+</p>
+
+<h2>If there is an incident</h2>
+
+<p>
+  We keep a written incident response plan rather than improvising. In short: we contain
+  first, notify Atlassian within 24 hours of discovering an incident, post progress at least
+  every six hours until it is resolved, tell affected customers what happened and what it
+  means for them, and publish a post-incident review of what we changed so it does not
+  happen again.
+</p>
+
+<h2>Why the blast radius is small</h2>
+
+<p>
+  This matters more than any policy text: there is very little here to steal.
+</p>
+
+<ul>
+  <li><strong>The app stores nothing.</strong> No Forge storage, no database, no cache, no logs
+    of its own. Conversion happens in your browser and is discarded when you close the tab.</li>
+  <li><strong>Read-only access.</strong> Four read scopes, no write scopes. The app cannot
+    change or delete anything in your site.</li>
+  <li><strong>No external egress.</strong> The app declares no outbound hosts and contacts no
+    third-party service. This is what qualifies it for Atlassian's
+    <em>Runs on Atlassian</em> programme.</li>
+  <li><strong>It reads as you.</strong> Every read uses your own Confluence permissions, so the
+    app cannot reach content you cannot already see.</li>
+</ul>
+
+<p>
+  The realistic risk is therefore not a data breach on our side but a compromise of the
+  supply chain — a dependency or the release path. That is where our attention goes.
+</p>
+
+<h2>How we keep the code honest</h2>
+
+<ul>
+  <li><strong>Automated dependency scanning</strong> on the source repository, with security
+    updates enabled and a weekly scan of every manifest. The app ships two runtime
+    dependencies, both Atlassian's own Forge packages.</li>
+  <li><strong>A public conformance suite.</strong> Every release is scored against open rules,
+    an open corpus and an open scorer, so correctness claims can be checked rather than
+    taken on trust:
+    <a href="https://github.com/YoungjuneKwon/confluence-markdown-conformance">confluence-markdown-conformance</a>.</li>
+  <li><strong>Least privilege by construction.</strong> Scopes are reviewed on every release;
+    if a feature would need a write scope, it does not ship without saying so here first.</li>
+</ul>
+
+<h2>What we do not claim</h2>
+
+<p>
+  We would rather be believed than impressive. As of this date:
+</p>
+
+<ul>
+  <li>the app is <strong>not</strong> part of the Marketplace Bug Bounty programme</li>
+  <li>we do <strong>not</strong> commission external penetration tests</li>
+  <li>we hold <strong>no</strong> compliance certifications such as ISO 27001 or SOC 2</li>
+</ul>
+
+<p>
+  Second Tiger is a one-person business. If any of the above changes, this page changes with
+  it.
+</p>
+
+<h2>Contact</h2>
+
+<p>
+  <a href="mailto:yjkwon@winm2m.com">yjkwon@winm2m.com</a> — security reports, and anything
+  else on this page.
+</p>
+
+</main>
+
+</body>
+</html>
