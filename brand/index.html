@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Second Tiger — brand mark</title>
+<meta name="description" content="The Second Tiger mark: vector files, an icon font, and how to use them.">
+<link rel="stylesheet" href="../style.css">
+<style>
+  @font-face {
+    font-family: "Second Tiger Mark";
+    src: url("SecondTigerMark.woff2") format("woff2");
+    font-display: block;
+  }
+  .mark { font-family: "Second Tiger Mark"; color: #1d3b53; line-height: 1; }
+  .row { display: flex; align-items: flex-end; gap: 28px; flex-wrap: wrap; margin: 24px 0 8px; }
+  .row span { display: block; }
+  .cap { color: var(--muted); font-size: 13px; }
+  .files td:first-child { white-space: nowrap; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+  pre { background: var(--soft); border: 1px solid var(--line); padding: 14px 16px; overflow-x: auto; }
+</style>
+</head>
+<body>
+<header class="site"><div class="wrap"><strong>Second Tiger</strong></div></header>
+<main class="wrap">
+
+<h1>The mark</h1>
+<p>A carved seal: a tiger, a magpie standing on its back, and the setting-out lines left
+unerased and running past the border. The magpie is the witness; the construction is not
+hidden. The studio shows what it can show, with the working left in.</p>
+
+<div class="row">
+  <span class="mark" style="font-size:180px">&#xE000;</span>
+  <span class="mark" style="font-size:96px">&#xE000;</span>
+  <span class="mark" style="font-size:48px">&#xE000;</span>
+  <span class="mark" style="font-size:24px">&#xE000;</span>
+</div>
+<p class="cap">Rendered live from the icon font on this page — not images.</p>
+
+<h2>Files</h2>
+<table class="files">
+<tr><td><a href="second-tiger-navy.svg">second-tiger-navy.svg</a></td><td>Vector, navy <code>#1D3B53</code> — the primary colour</td></tr>
+<tr><td><a href="second-tiger-vermilion.svg">second-tiger-vermilion.svg</a></td><td>Vector, vermilion <code>#C0392B</code> — seal and print contexts</td></tr>
+<tr><td><a href="second-tiger-ink.svg">second-tiger-ink.svg</a></td><td>Vector, ink <code>#141414</code></td></tr>
+<tr><td><a href="second-tiger-navy-1024.png">…-1024.png</a> · <a href="second-tiger-navy-512.png">512</a> · <a href="second-tiger-navy-144.png">144</a> · <a href="second-tiger-navy-48.png">48</a></td><td>Transparent PNG</td></tr>
+<tr><td><a href="SecondTigerMark.woff2">SecondTigerMark.woff2</a></td><td>Icon font for the web</td></tr>
+<tr><td><a href="SecondTigerMark.ttf">SecondTigerMark.ttf</a></td><td>Icon font to install — mail signatures, documents, slides</td></tr>
+</table>
+
+<h2>Using the font</h2>
+<p>The glyph sits at <code>U+E000</code>. It takes the current text colour, so one file covers
+every colour and every size.</p>
+<pre>@font-face {
+  font-family: "Second Tiger Mark";
+  src: url("SecondTigerMark.woff2") format("woff2");
+  font-display: block;
+}
+.st-mark::before {
+  font-family: "Second Tiger Mark";
+  content: "\E000";
+  color: #1D3B53;
+}</pre>
+
+<h2>Limits, stated plainly</h2>
+<ul>
+  <li>One colour at a time. The mark is monochrome by design.</li>
+  <li>Below about 32&nbsp;px the interior stripes crowd together. A reduced glyph for small
+      sizes is not done yet.</li>
+  <li>Screen readers do not announce private-use characters. Pair the glyph with
+      <code>aria-hidden</code> and real text.</li>
+</ul>
+
+</main>
+<footer class="site"><div class="wrap"><p class="cap">Second Tiger</p></div></footer>
+</body>
+</html>
