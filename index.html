@@ -6,6 +6,54 @@
 <title>Faithful Markdown Export for Confluence</title>
 <meta name="description" content="Export Confluence pages, trees or whole spaces to Markdown without losing task state, code block languages, nesting or non-English titles.">
 <link rel="stylesheet" href="style.css">
+<!-- 구조화 데이터. 사람이 아니라 검색·생성형 엔진이 읽는다. 여기 적는 것은
+     전부 페이지 본문에 있는 사실이어야 한다 — 여기에만 있는 주장은 쓰지 않는다.
+     평점은 넣지 않는다. 리뷰가 아직 한 건도 없다. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Faithful Markdown Export for Confluence",
+  "applicationCategory": "BusinessApplication",
+  "applicationSubCategory": "Atlassian Confluence Cloud app",
+  "operatingSystem": "Atlassian Confluence Cloud",
+  "url": "https://youngjunekwon.github.io/faithful-markdown-export/",
+  "downloadUrl": "https://marketplace.atlassian.com/apps/1569868747/faithful-markdown-export-for-confluence",
+  "softwareHelp": "https://youngjunekwon.github.io/faithful-markdown-export/docs.html",
+  "description": "Exports a Confluence page, page tree or whole space to Markdown without silently losing information. Task state, code block languages, list nesting, attachments and non-ASCII page titles survive the export, and anything that cannot be represented faithfully is reported rather than dropped.",
+  "featureList": [
+    "Export a page, a page tree or an entire space in one pass",
+    "Task state survives: a completed task exports as completed",
+    "Code block languages survive, including code blocks nested inside list items",
+    "Non-ASCII page titles become readable filenames instead of UUIDs",
+    "Mermaid and PlantUML diagrams keep their source as fenced code",
+    "Attachments exported alongside, with body references rewritten",
+    "Every run reports what it had to degrade and on which page"
+  ],
+  "publisher": {
+    "@type": "Organization",
+    "name": "Second Tiger",
+    "url": "https://marketplace.atlassian.com/vendors/593237281"
+  },
+  "offers": [
+    {
+      "@type": "Offer",
+      "name": "Up to 10 users",
+      "price": "0",
+      "priceCurrency": "USD",
+      "category": "free"
+    },
+    {
+      "@type": "Offer",
+      "name": "11 users and above",
+      "priceCurrency": "USD",
+      "category": "subscription",
+      "url": "https://marketplace.atlassian.com/apps/1569868747/faithful-markdown-export-for-confluence?tab=pricing"
+    }
+  ],
+  "isAccessibleForFree": true
+}
+</script>
 </head>
 <body>
 

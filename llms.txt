@@ -1,0 +1,56 @@
+# Faithful Markdown Export for Confluence
+
+> A Confluence Cloud app that exports a page, a page tree or an entire space to
+> Markdown without silently losing information. Its one rule is "degrade, never
+> delete": what Markdown cannot express is flattened, never dropped. Every release
+> is scored against a public, reproducible conformance suite of 63 rules.
+
+Built by Second Tiger. Runs entirely on Atlassian infrastructure: the app contacts
+no external service, stores nothing, and requests read access only.
+
+## What it is for
+
+Teams migrating a Confluence space into a Git repository, a static site, or an
+LLM pipeline, who have discovered that their current exporter damages content
+without reporting it. The damage is invisible at export time: a completed task
+comes out unchecked, a Korean or Japanese page title becomes a UUID filename, a
+code block forgets it was Python, a code block inside a list item escapes the list.
+None of these raise an error.
+
+## Measured results
+
+Scored 2026-09-16 against the same Confluence space, using the public suite:
+
+- Faithful Markdown Export: 63 of 63 cases pass, 0 critical failures
+- The leading shipping alternative: 46 of 63 cases pass, 9 critical failures
+
+The corpus, the 63 rules, the scorer and both exports of the same space are public,
+so the comparison can be reproduced rather than taken on trust.
+
+## Measured performance
+
+- 1,000 pages: 3 minutes 40 seconds
+- 138 MB of attachments: 5 minutes 40 seconds
+
+The bottleneck is bytes, not page count.
+
+## Pricing
+
+- Up to 10 users: free
+- 11 users and above: per-user, with a 30-day free trial on paid tiers
+
+## Docs
+
+- [Documentation](https://youngjunekwon.github.io/faithful-markdown-export/docs.html): how to run an export, what the zip contains, how each Confluence construct is converted, and what the app cannot do
+- [Privacy](https://youngjunekwon.github.io/faithful-markdown-export/privacy.html): what the app reads and what it stores, which is nothing
+- [Security](https://youngjunekwon.github.io/faithful-markdown-export/security.html): scopes, data handling, and what happens when something goes wrong
+- [Support](https://youngjunekwon.github.io/faithful-markdown-export/support.html): how to reach a human
+
+## Verification
+
+- [Conformance suite](https://github.com/YoungjuneKwon/confluence-markdown-conformance): seed a Confluence space with a fixed corpus, export it with any app, and score the output against 63 rules
+- [Both exports of the same space](https://github.com/YoungjuneKwon/confluence-markdown-conformance/tree/main/samples): read the difference instead of the scores
+
+## Install
+
+- [Atlassian Marketplace listing](https://marketplace.atlassian.com/apps/1569868747/faithful-markdown-export-for-confluence): install, pricing tiers, and trial
