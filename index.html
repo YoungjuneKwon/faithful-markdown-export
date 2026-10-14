@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Faithful Markdown Export for Confluence</title>
-<meta name="description" content="Export Confluence pages, trees or whole spaces to Markdown without losing task state, code block languages, nesting or non-English titles.">
+<meta name="description" content="Confluence's own export returns one page of Markdown. This app exports a page tree or a whole space — attachments, rewritten links and readable filenames — and reports what it degraded.">
 <link rel="stylesheet" href="style.css">
 <!-- 구조화 데이터. 사람이 아니라 검색·생성형 엔진이 읽는다. 여기 적는 것은
      전부 페이지 본문에 있는 사실이어야 한다 — 여기에만 있는 주장은 쓰지 않는다.
@@ -20,7 +20,7 @@
   "url": "https://youngjunekwon.github.io/faithful-markdown-export/",
   "downloadUrl": "https://marketplace.atlassian.com/apps/1569868747/faithful-markdown-export-for-confluence",
   "softwareHelp": "https://youngjunekwon.github.io/faithful-markdown-export/docs.html",
-  "description": "Exports a Confluence page, page tree or whole space to Markdown without silently losing information. Task state, code block languages, list nesting, attachments and non-ASCII page titles survive the export, and anything that cannot be represented faithfully is reported rather than dropped.",
+  "description": "Exports a Confluence page, page tree or whole space to Markdown in one pass. Confluence's own export returns the body text of a single page; this app additionally carries attachments, rewrites the links between exported pages, keeps non-ASCII page titles as readable filenames, and reports anything that could not be represented faithfully rather than dropping it silently.",
   "featureList": [
     "Export a page, a page tree or an entire space in one pass",
     "Task state survives: a completed task exports as completed",
@@ -71,11 +71,31 @@
 
 <main class="wrap">
 
-<h1>Your Confluence export is probably losing more than you think</h1>
+<h1>Exporting one page is solved. Exporting a space is not.</h1>
 <p class="lede">
-  A completed task that comes out unchecked. A Korean page title that becomes
-  <code>page-4a8efd2d-….md</code>. A code block that forgets it was Python. None of it
-  throws an error — you find out later, in the repository you migrated to.
+  Confluence can now hand you a single page as Markdown — the body text, and nothing else.
+  The moment you need the page tree, the attachments, the links between pages, or a filename
+  you can read, that stops being enough. This app exports the whole thing in one pass, and
+  tells you what it had to degrade on the way.
+</p>
+
+<h2>What each export covers</h2>
+
+<table>
+  <tr><th>&nbsp;</th><th>Confluence’s own export (beta)</th><th>This app</th></tr>
+  <tr><td>One page’s body as Markdown</td><td class="yes">Yes</td><td class="yes">Yes</td></tr>
+  <tr><td>A page tree or an entire space in one pass</td><td class="no">One page at a time</td><td class="yes">Yes</td></tr>
+  <tr><td>Attachments, with body references rewritten</td><td class="no">No — text only</td><td class="yes">Yes</td></tr>
+  <tr><td>Links between exported pages</td><td class="no">Left pointing at the wiki</td><td class="yes">Relative, inside the export</td></tr>
+  <tr><td>Filenames</td><td class="no">Whatever the download is named</td><td class="yes">The page title, non-Latin included</td></tr>
+  <tr><td>A report of what had to degrade</td><td class="no">No</td><td class="yes">Yes, naming the page</td></tr>
+</table>
+
+<p>
+  These are different jobs, not two attempts at the same one. If you want one page in a
+  pull request description, use the menu Confluence already gives you. If you are moving a
+  space into a repository, a static site or an LLM pipeline, the rest of this page is about
+  that.
 </p>
 
 <h2>One rule</h2>
@@ -118,13 +138,27 @@
 </p>
 
 <div class="callout">
-  <p><strong>Current scores</strong>, measured 2026&#8209;09&#8209;16 on the same Confluence space:</p>
+  <p><strong>Current scores</strong>, from the same Confluence space and the same 63 rules:</p>
   <table style="margin-bottom:0">
-    <tr><th>Export</th><th>Cases</th><th>Critical failures</th></tr>
-    <tr><td>Faithful Markdown Export 0.1.0</td><td class="yes">63 / 63</td><td class="yes">0</td></tr>
-    <tr><td>The leading shipping alternative</td><td class="no">46 / 63</td><td class="no">9</td></tr>
+    <tr><th>Export</th><th>Measured</th><th>Conversion<br>(46 rules)</th><th>Critical<br>failures</th><th>Files<br>(17 rules)</th></tr>
+    <tr><td>Faithful Markdown Export 0.1.0</td><td>2026&#8209;09&#8209;16</td><td class="yes">46 / 46</td><td class="yes">0</td><td class="yes">17 / 17</td></tr>
+    <tr><td>Confluence’s own export (beta)</td><td>2026&#8209;10&#8209;14</td><td>35 / 46</td><td class="no">3</td><td>—</td></tr>
+    <tr><td>The leading shipping alternative</td><td>2026&#8209;09&#8209;16</td><td class="no">34 / 46</td><td class="no">5</td><td class="no">12 / 17</td></tr>
   </table>
 </div>
+
+<p>
+  The 63 rules split in two, and the split is the whole point. <strong>46 of them ask whether
+  the text survived</strong> — a task’s state, a fence’s language, a macro’s body. <strong>17 ask
+  whether you got your space back</strong> — attachments on disk, a filename you can read, a folder
+  tree that matches the page tree.
+</p>
+<p>
+  Confluence’s own export is genuinely good at the first and does not attempt the second: it
+  returns one page’s Markdown and writes no files, so those 17 have nothing to score and are
+  left blank rather than counted as failures. It was measured through the same API the
+  Export menu calls, one page at a time, which is why its date differs from the other two.
+</p>
 
 <p>
   Run it yourself before you buy:
@@ -172,7 +206,8 @@
 <h2>The measurement this app came from</h2>
 <p>Before the app there was a benchmark: a fixed Confluence corpus, 63 rules, and
 a scorer that names what an export breaks. It is public, MIT licensed, and it
-scores this app alongside the alternative — including the cases this app fails.</p>
+scores this app alongside the alternatives, Confluence’s own export included — and it
+keeps the cases this app fails.</p>
 <p><a href="https://github.com/YoungjuneKwon/confluence-markdown-conformance"><strong>confluence-markdown-conformance</strong></a> — run it against whatever exporter you use.</p>
 <p class="cap">Every score has a shelf life; these apps ship often. To hear when the
 numbers are re-measured, watch that repository's releases, or mail

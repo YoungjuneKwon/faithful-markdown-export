@@ -1,9 +1,13 @@
 # Faithful Markdown Export for Confluence
 
 > A Confluence Cloud app that exports a page, a page tree or an entire space to
-> Markdown without silently losing information. Its one rule is "degrade, never
-> delete": what Markdown cannot express is flattened, never dropped. Every release
-> is scored against a public, reproducible conformance suite of 63 rules.
+> Markdown in one pass — attachments carried along with body references rewritten,
+> page titles kept as readable filenames, and a report naming everything that had to
+> be degraded. Confluence's own export, in beta since June 2026, returns the body
+> text of one page and writes no files; this app is for the case where a whole space
+> has to arrive somewhere else intact. Its one rule is "degrade, never delete": what
+> Markdown cannot express is flattened, never dropped. Every release is scored
+> against a public, reproducible conformance suite of 63 rules.
 
 Built by Second Tiger. Runs entirely on Atlassian infrastructure: the app contacts
 no external service, stores nothing, and requests read access only.
@@ -11,21 +15,51 @@ no external service, stores nothing, and requests read access only.
 ## What it is for
 
 Teams migrating a Confluence space into a Git repository, a static site, or an
-LLM pipeline, who have discovered that their current exporter damages content
-without reporting it. The damage is invisible at export time: a completed task
+LLM pipeline — that is, people who need the tree and the attachments, not one
+page. A single page is already served by Confluence's own Export menu.
+
+Two things make a bulk export go wrong, and both are silent. The first is scope:
+an export that returns body text leaves the images, the inter-page links and the
+folder structure to be rebuilt by hand. The second is damage — a completed task
 comes out unchecked, a Korean or Japanese page title becomes a UUID filename, a
-code block forgets it was Python, a code block inside a list item escapes the list.
-None of these raise an error.
+code block forgets it was Python, a code block inside a list item escapes the
+list. None of these raise an error.
+
+## How it differs from Confluence's own Markdown export
+
+| | Confluence native export (beta) | Faithful Markdown Export |
+|---|---|---|
+| One page's body as Markdown | yes | yes |
+| Page tree or whole space in one pass | no, one page at a time | yes |
+| Attachments, with body references rewritten | no | yes |
+| Links between exported pages | left pointing at the wiki | rewritten relative |
+| Filenames from page titles | not applicable, no files written | the title, non-Latin included |
+| Report of what was degraded | no | yes, naming the page |
 
 ## Measured results
 
-Scored 2026-09-16 against the same Confluence space, using the public suite:
+The 63 rules divide into 46 that ask whether the text survived the conversion and
+17 that ask whether the files on disk are right — attachments, filenames, folder
+tree. Confluence's native export writes no files, so those 17 cannot be scored
+against it and are left out rather than counted as failures.
 
-- Faithful Markdown Export: 63 of 63 cases pass, 0 critical failures
-- The leading shipping alternative: 46 of 63 cases pass, 9 critical failures
+| Export | Measured | Conversion (46) | Critical failures | Files (17) |
+|---|---|---|---|---|
+| Faithful Markdown Export 0.1.0 | 2026-09-16 | 46/46 | 0 | 17/17 |
+| Confluence native export (beta) | 2026-10-14 | 35/46 | 3 | not applicable |
+| Markdown Exporter for Confluence 3.5.0 | 2026-09-16 | 34/46 | 5 | 12/17 |
 
-The corpus, the 63 rules, the scorer and both exports of the same space are public,
-so the comparison can be reproduced rather than taken on trust.
+Over all 63 rules, where that is meaningful: Faithful 63/63 with 0 critical
+failures, Markdown Exporter 3.5.0 46/63 with 9.
+
+The native export was measured through the same API its Export menu calls
+(`GET /wiki/api/v2/pages/{id}?body-format=markdown`), one page at a time across the
+whole seeded corpus space. Its three critical conversion failures are a fence inside a
+code block closing the block early, a code block escaping its list item, and an
+expand block losing its title.
+
+The corpus, the 63 rules, the scorer and both app exports of the same space are
+public, so the comparison can be reproduced rather than taken on trust.
 
 ## Measured performance
 
