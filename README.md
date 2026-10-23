@@ -4,7 +4,7 @@ The website for **Faithful Markdown Export for Confluence** — an Atlassian Mar
 that exports Confluence pages, trees and spaces to Markdown without losing task state, code
 block languages, nesting or non-English titles.
 
-Published at <https://youngjunekwon.github.io/faithful-markdown-export/>.
+Published at <https://markdown.secondtiger.com/>.
 
 | Page | |
 |---|---|

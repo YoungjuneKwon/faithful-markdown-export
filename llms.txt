@@ -75,10 +75,10 @@ The bottleneck is bytes, not page count.
 
 ## Docs
 
-- [Documentation](https://youngjunekwon.github.io/faithful-markdown-export/docs.html): how to run an export, what the zip contains, how each Confluence construct is converted, and what the app cannot do
-- [Privacy](https://youngjunekwon.github.io/faithful-markdown-export/privacy.html): what the app reads and what it stores, which is nothing
-- [Security](https://youngjunekwon.github.io/faithful-markdown-export/security.html): scopes, data handling, and what happens when something goes wrong
-- [Support](https://youngjunekwon.github.io/faithful-markdown-export/support.html): how to reach a human
+- [Documentation](https://markdown.secondtiger.com/docs.html): how to run an export, what the zip contains, how each Confluence construct is converted, and what the app cannot do
+- [Privacy](https://markdown.secondtiger.com/privacy.html): what the app reads and what it stores, which is nothing
+- [Security](https://markdown.secondtiger.com/security.html): scopes, data handling, and what happens when something goes wrong
+- [Support](https://markdown.secondtiger.com/support.html): how to reach a human
 
 ## Verification
 
