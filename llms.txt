@@ -1,4 +1,4 @@
-# Faithful Markdown Export for Confluence
+# Markdown Export (Faithful) for Confluence
 
 > A Confluence Cloud app that exports a page, a page tree or an entire space to
 > Markdown in one pass — attachments carried along with body references rewritten,
@@ -27,7 +27,7 @@ list. None of these raise an error.
 
 ## How it differs from Confluence's own Markdown export
 
-| | Confluence native export (beta) | Faithful Markdown Export |
+| | Confluence native export (beta) | Markdown Export (Faithful) |
 |---|---|---|
 | One page's body as Markdown | yes | yes |
 | Page tree or whole space in one pass | no, one page at a time | yes |
@@ -45,7 +45,7 @@ against it and are left out rather than counted as failures.
 
 | Export | Measured | Conversion (46) | Critical failures | Files (17) |
 |---|---|---|---|---|
-| Faithful Markdown Export 0.1.0 | 2026-09-16 | 46/46 | 0 | 17/17 |
+| Markdown Export (Faithful) 0.1.0 | 2026-09-16 | 46/46 | 0 | 17/17 |
 | Confluence native export (beta) | 2026-10-14 | 35/46 | 3 | not applicable |
 | Markdown Exporter for Confluence 3.5.0 | 2026-09-16 | 34/46 | 5 | 12/17 |
 
@@ -87,4 +87,4 @@ The bottleneck is bytes, not page count.
 
 ## Install
 
-- [Atlassian Marketplace listing](https://marketplace.atlassian.com/apps/1569868747/faithful-markdown-export-for-confluence): install, pricing tiers, and trial
+- [Atlassian Marketplace listing](https://marketplace.atlassian.com/apps/1569868747/markdown-export-faithful-for-confluence): install, pricing tiers, and trial
